@@ -1,128 +1,93 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amethyst Medical Club | Events</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            background: radial-gradient(circle at center, #1a0b2e 0%, #09050f 100%);
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            color: #e2e8f0;
-            overflow-x: hidden;
-        }
-
-        /* تأثير الزجاج اللامع */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(168, 85, 247, 0.2);
-            border-radius: 24px;
-            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .glass-card::before {
-            content: "";
-            position: absolute;
-            top: -50%; left: -50%;
-            width: 200%; height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(168, 85, 247, 0.1), transparent);
-            transform: rotate(45deg);
-            transition: 0.8s;
-        }
-
-        .glass-card:hover::before {
-            left: 100%;
-        }
-
-        .glass-card:hover {
-            border-color: rgba(168, 85, 247, 0.6);
-            box-shadow: 0 0 40px rgba(168, 85, 247, 0.15);
-            transform: translateY(-10px);
-        }
-
-        /* تأثير الكريستال المتوهج في الخلفية */
-        .crystal-glow {
-            position: absolute;
-            width: 400px; height: 400px;
-            background: radial-gradient(circle, rgba(168, 85, 247, 0.15) 0%, transparent 70%);
-            filter: blur(60px);
-            z-index: -1;
-        }
-
-        .shimmer-text {
-            background: linear-gradient(90deg, #fff, #a855f7, #fff);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: shimmer 3s linear infinite;
-        }
-
-        @keyframes shimmer {
-            to { background-position: 200% center; }
-        }
-    </style>
-</head>
 <body class="min-h-screen p-6 md:p-20">
-
     <div class="crystal-glow top-0 left-0"></div>
     <div class="crystal-glow bottom-0 right-0"></div>
 
-<header class="text-center mb-16 pt-10">
-    <div class="relative inline-block group">
-        <div class="absolute -inset-1 bg-gradient-to-r from-purple-600 to-fuchsia-500 rounded-full blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
-        
-        <div class="relative bg-black/40 backdrop-blur-xl p-6 rounded-2xl border border-white/10">
-            <img src="amethyst-logo.jpg" alt="Amethyst Logo" class="h-24 md:h-32 w-auto mx-auto object-contain">
+    <header class="text-center mb-16 pt-10">
+        <div class="relative inline-block group">
+            <div class="absolute -inset-1 bg-gradient-to-r from-purple-600 to-fuchsia-500 rounded-full blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
+            <div class="relative bg-black/40 backdrop-blur-xl p-6 rounded-2xl border border-white/10">
+                <img src="amethyst-logo.jpg" alt="Amethyst Logo" class="h-24 md:h-32 w-auto mx-auto object-contain">
+            </div>
         </div>
-    </div>
-    <div class="mt-6">
-        <p class="text-sm font-light tracking-[0.3em] uppercase text-purple-400/80">Amethyst Medical Club</p>
-    </div>
-</header>
+        <p class="mt-6 text-sm font-light tracking-[0.3em] uppercase text-purple-400/80">Amethyst Medical Club</p>
+    </header>
 
-    <main class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
-        
-        <div class="glass-card p-8 group cursor-pointer">
-            <div class="h-64 rounded-xl mb-6 overflow-hidden">
-                 <img src="pharmacy-course.png" class="w-full h-full object-cover">
-                    <span class="text-purple-400 text-sm italic">PHARMACY LEARNING COURSE</span>
+    <main class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="events-grid">
+        </main>
+
+    <div id="eventModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+        <div class="glass-card max-w-4xl w-full max-h-[90vh] overflow-y-auto p-8 relative">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-white hover:text-purple-400 text-2xl">&times;</button>
+            <div id="modalContent">
                 </div>
-            </div>
-            <h2 class="text-2xl font-bold mb-3 text-white">Pharmacy Learning Course</h2>
-            <p class="text-gray-400 mb-6 leading-relaxed">دورة مكثفة وحصرية لطلبة الطب للتعرف على عالم الصيدلة الإكلينيكية.</p>
-            <div class="flex justify-between items-center">
-                <span class="px-4 py-1 rounded-full bg-purple-500/10 text-purple-400 text-xs border border-purple-500/20">Exclusive for Med Students</span>
-                <button class="bg-white text-black px-6 py-2 rounded-lg font-bold hover:bg-purple-500 hover:text-white transition-all">Join Now</button>
-            </div>
         </div>
-
-        <div class="glass-card p-8 group cursor-pointer">
-            <div class="h-64 rounded-xl mb-6 overflow-hidden">
-                <div class="w-full h-full bg-gradient-to-br from-purple-900/40 to-black flex items-center justify-center border border-white/5">
-                    <span class="text-purple-400 text-sm italic">MASTERING SUTURES</span>
-                </div>
-            </div>
-            <img src="sutures.jpg" alt="Mastering Sutures" class="w-full h-full object-cover">
     </div>
-    <h2 class="text-2xl font-bold mb-3 text-white">Mastering Sutures</h2>
-            <p class="text-gray-400 mb-6 leading-relaxed">أتقن فن الخياطة الجراحية تحت إشراف نخبة من الأطباء المتخصصين.</p>
-            <div class="flex justify-between items-center">
-                <span class="px-4 py-1 rounded-full bg-purple-500/10 text-purple-400 text-xs border border-purple-500/20">Coming Soon</span>
-                <button class="bg-purple-900/50 text-gray-400 px-6 py-2 rounded-lg font-bold cursor-not-allowed">Stay Tuned</button>
-            </div>
-        </div>
 
-    </main>
+    <script>
+        // بيانات الفعاليات (يمكنك إضافة المزيد هنا بسهولة)
+        const events = [
+            {
+                id: 1,
+                title: "Pharmacy Learning Course",
+                shortDesc: "دورة مكثفة لطلبة الطب حول الصيدلة الإكلينيكية.",
+                image: "pharmacy-course.png",
+                fullArticle: "تعتبر هذه الدورة هي الخطوة الأولى لطلبة الطب لفهم التداخلات الدوائية والتركيبات الصيدلانية من منظور إكلينيكي بحت. تتضمن محاكاة لقرارات واقعية في صرف الأدوية.",
+                extraImages: ["pharmacy_detail1.png", "pharmacy_detail2.png"]
+            },
+            {
+                id: 2,
+                title: "Mastering Sutures",
+                shortDesc: "أتقن فن الخياطة الجراحية تحت إشراف متخصصين.",
+                image: "formation du sutures.jpg",
+                fullArticle: "دورة عملية تركز على تقنيات الخياطة الجراحية المختلفة. ستتعلم كيفية التعامل مع الأنسجة باستخدام أحدث الأدوات، مع الالتزام التام بمعايير التعقيم العالمية.",
+                extraImages: ["sutures_detail1.jpg"]
+            },
+            {
+                id: 3,
+                title: "Medical Anatomy Workshop",
+                shortDesc: "ورشة عمل معمقة في علم التشريح البشري.",
+                image: "anatomy.jpg", // تذكر رفع هذه الصورة
+                fullArticle: "مراجعة شاملة لنقاط التشريح الهامة التي يحتاجها الطالب قبل الامتحانات، مع التركيز على المصطلحات الفرنسية والعلمية الدقيقة.",
+                extraImages: []
+            }
+        ];
 
-    <footer class="mt-32 text-center border-t border-white/5 pt-10">
-        <p class="text-sm text-gray-500 mb-2 italic">Under the supervision of Dr. Ould Chakmakdji</p>
-        <p class="text-xs text-purple-600 font-bold uppercase tracking-widest">Amethyst Medical Club &copy; 2026</p>
-    </footer>
+        function renderEvents() {
+            const grid = document.getElementById('events-grid');
+            grid.innerHTML = events.map(event => `
+                <div class="glass-card p-6 cursor-pointer hover:scale-105 transition-transform" onclick="openModal(${event.id})">
+                    <img src="${event.image}" class="w-full h-48 object-cover rounded-xl mb-4">
+                    <h2 class="text-xl font-bold text-white mb-2">${event.title}</h2>
+                    <p class="text-gray-400 text-sm">${event.shortDesc}</p>
+                </div>
+            `).join('');
+        }
 
+        function openModal(id) {
+            const event = events.find(e => e.id === id);
+            const modal = document.getElementById('eventModal');
+            const content = document.getElementById('modalContent');
+            
+            content.innerHTML = `
+                <img src="${event.image}" class="w-full h-80 object-cover rounded-2xl mb-8">
+                <h2 class="text-3xl font-bold text-purple-400 mb-4">${event.title}</h2>
+                <div class="prose prose-invert max-w-none text-gray-300 mb-8">
+                    <p>${event.fullArticle}</p>
+                </div>
+                <div class="grid grid-cols-2 gap-4 mt-8">
+                    ${event.extraImages.map(img => `<img src="${img}" class="rounded-lg border border-white/10 shadow-lg">`).join('')}
+                </div>
+            `;
+            
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; // منع التمرير في الخلفية
+        }
+
+        function closeModal() {
+            document.getElementById('eventModal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        renderEvents();
+    </script>
 </body>
-</html>
