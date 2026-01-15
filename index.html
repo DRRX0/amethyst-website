@@ -16,6 +16,19 @@
             scroll-behavior: smooth;
         }
 
+        /* تأثير النص اللامع (Shimmer) */
+        .shimmer-text {
+            background: linear-gradient(90deg, #ffffff, #a855f7, #ffffff);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 3s linear infinite;
+        }
+
+        @keyframes shimmer {
+            to { background-position: 200% center; }
+        }
+
         /* تأثير الزجاج للبطاقات والنافذة */
         .glass-card {
             background: rgba(255, 255, 255, 0.03);
@@ -31,7 +44,7 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        /* التحكم في حجم الصور ومنع تضخمها */
+        /* التحكم في حجم الصور */
         .img-container {
             width: 100%;
             height: 250px;
@@ -46,10 +59,15 @@
 
         /* توهج اللوغو الثابت */
         .logo-glow {
-            filter: drop-shadow(0 0 20px rgba(168, 85, 247, 0.6));
+            filter: drop-shadow(0 0 25px rgba(168, 85, 247, 0.6));
+            animation: pulse 4s ease-in-out infinite;
         }
 
-        /* إخفاء شريط التمرير */
+        @keyframes pulse {
+            0%, 100% { opacity: 0.9; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.02); }
+        }
+
         .scrollbar-hide::-webkit-scrollbar { display: none; }
     </style>
 </head>
@@ -58,9 +76,9 @@
     <header class="text-center mb-16">
         <div class="inline-block relative">
             <div class="absolute inset-0 bg-purple-600/10 blur-3xl rounded-full"></div>
-            <img src="amethyst-logo.jpg" alt="Amethyst Logo" class="logo-glow h-32 md:h-44 mx-auto relative z-10">
+            <img src="amethyst logoo.png" alt="Amethyst Logo" class="logo-glow h-32 md:h-44 mx-auto relative z-10">
         </div>
-        <h1 class="mt-6 text-xs tracking-[0.4em] uppercase text-purple-400 opacity-80">shhine in healing</h1>
+        <h1 class="mt-6 text-xs tracking-[0.4em] uppercase shimmer-text font-bold">Amethyst Medical Club</h1>
     </header>
 
     <section class="max-w-3xl mx-auto text-center mb-28 px-4">
@@ -71,8 +89,8 @@
     </section>
 
     <section class="text-center mb-16">
-        <h2 class="text-3xl font-bold tracking-widest uppercase text-white inline-block relative">
-            أنشطتنا
+        <h2 class="text-3xl font-bold tracking-widest uppercase inline-block relative">
+            <span class="shimmer-text">أنشطتنا</span>
             <div class="absolute -bottom-3 left-0 w-full h-1 bg-purple-600 blur-[2px] opacity-50 rounded-full"></div>
         </h2>
     </section>
@@ -80,35 +98,38 @@
     <main id="events-grid" class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mb-20">
         </main>
 
+    <footer class="mt-32 text-center border-t border-white/5 pt-12 pb-8">
+        <p class="text-sm text-gray-500 mb-2 italic">تحت إشراف الدكتور ولد شاكمكجي</p>
+        <p class="text-[10px] text-purple-600 font-bold uppercase tracking-[0.3em]">Amethyst Medical Club &copy; 2026</p>
+    </footer>
+
     <div id="eventModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/95 backdrop-blur-xl">
         <div class="glass-card max-w-5xl w-full max-h-[90vh] overflow-y-auto p-6 md:p-10 relative">
-            <button onclick="closeModal()" class="absolute top-4 right-6 text-white text-4xl hover:text-purple-400 transition-colors">&times;</button>
+            <button onclick="closeModal()" class="absolute top-4 right-6 text-white text-4xl hover:text-purple-400">&times;</button>
             <div id="modalContent"></div>
         </div>
     </div>
 
     <script>
-        // مصفوفة البيانات بأسماء ملفاتك الصحيحة
         const activities = [
             {
                 id: 1,
                 title: "Pharmacy Learning Course",
                 short: "دورة تخصصية في العلوم الصيدلانية لطلبة الطب.",
-                mainImg: "pharmacy-course.png",
-                article: "تهدف هذه الدورة إلى تزويد طلبة الطب بالمعارف الأساسية حول الأدوية وتداخلاتها، مما يعزز دقة اتخاذ القرار الطبي. تم تصميم المحتوى ليكون غامراً يركز على التطبيقات الواقعية.",
+                mainImg: "1_20260113_153927_0000.png",
+                article: "تهدف هذه الدورة إلى تزويد طلبة الطب بالمعارف الأساسية حول الأدوية وتداخلاتها. تم تصميم المحتوى ليكون غامراً يركز على التطبيقات الواقعية.",
                 gallery: ["1_20260113_153927_0000.png", "image_cd0bc2.png"]
             },
             {
                 id: 2,
                 title: "Mastering Sutures",
                 short: "إتقان فنون الخياطة الجراحية العملية.",
-                mainImg: "formatin du sutures.jpg",
+                mainImg: "First or second.jpg",
                 article: "تجربة تطبيقية مكثفة لتعلم أنواع الغرز الجراحية والتعامل مع الأنسجة الحية، تقام تحت إشراف مباشر لضمان أعلى معايير الجودة الأكاديمية.",
                 gallery: ["First or second.jpg", "Second or first.jpg"]
             }
         ];
 
-        // وظيفة عرض البطاقات في الشبكة
         function displayActivities() {
             const grid = document.getElementById('events-grid');
             grid.innerHTML = activities.map(act => `
@@ -116,7 +137,7 @@
                     <div class="img-container">
                         <img src="${act.mainImg}" alt="${act.title}">
                     </div>
-                    <div class="mt-6 px-2 pb-2">
+                    <div class="mt-6 px-2 pb-2 text-center">
                         <h3 class="text-xl font-bold text-white mb-2">${act.title}</h3>
                         <p class="text-gray-400 text-sm leading-relaxed">${act.short}</p>
                     </div>
@@ -124,33 +145,30 @@
             `).join('');
         }
 
-        // وظيفة فتح النافذة وعرض التفاصيل والمعرض
         function showDetails(id) {
             const act = activities.find(a => a.id === id);
             const content = document.getElementById('modalContent');
-            
             content.innerHTML = `
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                    <div class="space-y-6">
+                    <div class="space-y-6 text-center">
                         <div class="rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
-                            <img id="activeImg" src="${act.mainImg}" class="w-full h-[400px] object-cover transition-all duration-300">
+                            <img id="activeImg" src="${act.mainImg}" class="w-full h-[350px] object-cover transition-all duration-300">
                         </div>
-                        <div class="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
+                        <div class="flex justify-center gap-3 overflow-x-auto pb-2 scrollbar-hide">
                             ${act.gallery.map(img => `
                                 <img src="${img}" onclick="document.getElementById('activeImg').src='${img}'" 
-                                class="h-20 w-24 object-cover rounded-lg cursor-pointer border border-white/10 hover:border-purple-500 transition-all opacity-70 hover:opacity-100">
+                                class="h-16 w-20 object-cover rounded-lg cursor-pointer border border-white/10 hover:border-purple-500 transition-all opacity-70 hover:opacity-100">
                             `).join('')}
                         </div>
                     </div>
-                    <div>
-                        <h2 class="text-3xl font-bold text-white mb-6">${act.title}</h2>
+                    <div class="text-right">
+                        <h2 class="text-3xl font-bold text-white mb-6 shimmer-text">${act.title}</h2>
                         <div class="h-1 w-16 bg-purple-500 mb-8"></div>
                         <p class="text-gray-300 text-lg leading-relaxed italic mb-8">${act.article}</p>
-                        <p class="text-xs text-purple-400 uppercase tracking-widest">تحت إشراف د. ولد شاكمكجي</p>
+                        <p class="text-xs text-purple-400 uppercase tracking-widest font-bold">تحت إشراف د. ولد شاكمكجي</p>
                     </div>
                 </div>
             `;
-            
             document.getElementById('eventModal').classList.remove('hidden');
             document.body.style.overflow = 'hidden';
         }
@@ -160,7 +178,6 @@
             document.body.style.overflow = 'auto';
         }
 
-        // تشغيل الوظيفة فور تحميل الصفحة
         window.onload = displayActivities;
     </script>
 </body>
