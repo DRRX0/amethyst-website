@@ -1,93 +1,122 @@
-<body class="min-h-screen p-6 md:p-20">
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amethyst Medical Club</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* قواعد حماية لمنع انفجار الصور وتشتت العناصر */
+        body {
+            background-color: #09050f;
+            color: #e2e8f0;
+            margin: 0;
+            font-family: sans-serif;
+            overflow-x: hidden;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        /* تحديد حجم ثابت لصور البطاقات لمنع تضخمها */
+        .card-img-container {
+            height: 250px;
+            width: 100%;
+            overflow: hidden;
+        }
+        .card-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .crystal-glow {
+            position: fixed;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(168, 85, 247, 0.1) 0%, transparent 70%);
+            z-index: -1;
+            filter: blur(60px);
+        }
+    </style>
+</head>
+<body class="p-4 md:p-10">
     <div class="crystal-glow top-0 left-0"></div>
-    <div class="crystal-glow bottom-0 right-0"></div>
-
-    <header class="text-center mb-16 pt-10">
-        <div class="relative inline-block group">
-            <div class="absolute -inset-1 bg-gradient-to-r from-purple-600 to-fuchsia-500 rounded-full blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
-            <div class="relative bg-black/40 backdrop-blur-xl p-6 rounded-2xl border border-white/10">
-                <img src="amethyst-logo.jpg" alt="Amethyst Logo" class="h-24 md:h-32 w-auto mx-auto object-contain">
-            </div>
+    
+    <header class="text-center py-10">
+        <div class="inline-block bg-black/40 p-6 rounded-2xl border border-white/10 backdrop-blur-md">
+            <img src="amethyst-logo.jpg" alt="Logo" style="height: 120px; width: auto; margin: 0 auto;">
         </div>
-        <p class="mt-6 text-sm font-light tracking-[0.3em] uppercase text-purple-400/80">SHINE IN HEALING</p>
+        <p class="mt-4 text-purple-400 tracking-[0.2em] uppercase text-sm">shine in healing</p>
     </header>
 
     <main class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="events-grid">
         </main>
 
-    <div id="eventModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-        <div class="glass-card max-w-4xl w-full max-h-[90vh] overflow-y-auto p-8 relative">
-            <button onclick="closeModal()" class="absolute top-4 right-4 text-white hover:text-purple-400 text-2xl">&times;</button>
-            <div id="modalContent">
-                </div>
+    <div id="eventModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/90 backdrop-blur-xl">
+        <div class="glass-card max-w-3xl w-full p-6 relative overflow-y-auto max-h-[90vh]">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-white text-3xl">&times;</button>
+            <div id="modalContent"></div>
         </div>
     </div>
 
     <script>
-        // بيانات الفعاليات (يمكنك إضافة المزيد هنا بسهولة)
+        // مصفوفة البيانات - يمكنك التعديل هنا بسهولة
         const events = [
             {
                 id: 1,
                 title: "Pharmacy Learning Course",
-                shortDesc: "دورة مكثفة لطلبة الطب حول الصيدلة الإكلينيكية.",
-                image: "pharmacy-course.png",
-                fullArticle: "تعتبر هذه الدورة هي الخطوة الأولى لطلبة الطب لفهم التداخلات الدوائية والتركيبات الصيدلانية من منظور إكلينيكي بحت. تتضمن محاكاة لقرارات واقعية في صرف الأدوية.",
-                extraImages: ["pharmacy_detail1.png", "pharmacy_detail2.png"]
+                shortDesc: "دورة حصرية لطلبة الطب حول الصيدلة.",
+                image: "pharmacy-course.png", // تأكد من الاسم
+                article: "هذا النص هو المقال التفصيلي الذي يظهر عند النقر. يمكنك كتابة شرح كامل هنا عن الدورة."
             },
             {
                 id: 2,
                 title: "Mastering Sutures",
-                shortDesc: "أتقن فن الخياطة الجراحية تحت إشراف متخصصين.",
-                image: "formation du sutures.jpg",
-                fullArticle: "دورة عملية تركز على تقنيات الخياطة الجراحية المختلفة. ستتعلم كيفية التعامل مع الأنسجة باستخدام أحدث الأدوات، مع الالتزام التام بمعايير التعقيم العالمية.",
-                extraImages: ["sutures_detail1.jpg"]
-            },
-            {
-                id: 3,
-                title: "Medical Anatomy Workshop",
-                shortDesc: "ورشة عمل معمقة في علم التشريح البشري.",
-                image: "anatomy.jpg", // تذكر رفع هذه الصورة
-                fullArticle: "مراجعة شاملة لنقاط التشريح الهامة التي يحتاجها الطالب قبل الامتحانات، مع التركيز على المصطلحات الفرنسية والعلمية الدقيقة.",
-                extraImages: []
+                shortDesc: "إتقان فن الخياطة الجراحية.",
+                image: "formation du sutures.jpg", // تأكد من الاسم
+                article: "تفاصيل دورة الخياطة الجراحية تحت إشراف د. ولد شاكمكجي."
             }
         ];
 
-        function renderEvents() {
+        function render() {
             const grid = document.getElementById('events-grid');
-            grid.innerHTML = events.map(event => `
-                <div class="glass-card p-6 cursor-pointer hover:scale-105 transition-transform" onclick="openModal(${event.id})">
-                    <img src="${event.image}" class="w-full h-48 object-cover rounded-xl mb-4">
-                    <h2 class="text-xl font-bold text-white mb-2">${event.title}</h2>
-                    <p class="text-gray-400 text-sm">${event.shortDesc}</p>
+            grid.innerHTML = events.map(e => `
+                <div class="glass-card cursor-pointer group" onclick="openModal(${e.id})">
+                    <div class="card-img-container">
+                        <img src="${e.image}" alt="${e.title}">
+                    </div>
+                    <div class="p-6">
+                        <h2 class="text-xl font-bold text-white mb-2">${e.title}</h2>
+                        <p class="text-gray-400 text-sm">${e.shortDesc}</p>
+                    </div>
                 </div>
             `).join('');
         }
 
         function openModal(id) {
-            const event = events.find(e => e.id === id);
-            const modal = document.getElementById('eventModal');
+            const e = events.find(event => event.id === id);
             const content = document.getElementById('modalContent');
-            
             content.innerHTML = `
-                <img src="${event.image}" class="w-full h-80 object-cover rounded-2xl mb-8">
-                <h2 class="text-3xl font-bold text-purple-400 mb-4">${event.title}</h2>
-                <div class="prose prose-invert max-w-none text-gray-300 mb-8">
-                    <p>${event.fullArticle}</p>
-                </div>
-                <div class="grid grid-cols-2 gap-4 mt-8">
-                    ${event.extraImages.map(img => `<img src="${img}" class="rounded-lg border border-white/10 shadow-lg">`).join('')}
-                </div>
+                <img src="${e.image}" class="w-full h-64 object-cover rounded-xl mb-6">
+                <h2 class="text-2xl font-bold text-purple-400 mb-4">${e.title}</h2>
+                <p class="text-gray-300 leading-relaxed">${e.article}</p>
             `;
-            
-            modal.classList.remove('hidden');
-            document.body.style.overflow = 'hidden'; // منع التمرير في الخلفية
+            document.getElementById('eventModal').classList.remove('hidden');
         }
 
         function closeModal() {
             document.getElementById('eventModal').classList.add('hidden');
-            document.body.style.overflow = 'auto';
         }
 
-        renderEvents();
+        render();
     </script>
 </body>
+</html>
